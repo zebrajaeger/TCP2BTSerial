@@ -106,10 +106,22 @@ public class BT {
             socket.getOutputStream().write(value);
         }
     }
+    public void send(byte[] value, int offset, int length) throws IOException {
+        if(isConnected()){
+            socket.getOutputStream().write(value,offset,length);
+        }
+    }
 
     public int read() throws IOException {
         if(isConnected()){
             return socket.getInputStream().read();
+        }else{
+            return -1;
+        }
+    }
+    public int read(byte[] buffer) throws IOException {
+        if(isConnected()){
+            return socket.getInputStream().read(buffer);
         }else{
             return -1;
         }

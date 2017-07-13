@@ -47,7 +47,7 @@ public class TcpBtServer {
     }
 
     private void handleSocket(final Socket s) {
-        boolean debug = true;
+        boolean debug = false;
 
         if (debug) {
             try {
@@ -99,9 +99,10 @@ public class TcpBtServer {
                 Log.i("BtSenderThread", "BtSenderThread started");
                 try {
                     InputStream is = s.getInputStream();
-                    int i;
-                    while ((i = is.read()) != -1) {
-                        bt.send(i);
+                    int l;
+                    byte[] buffer = new byte[1024];
+                    while ((l = is.read(buffer)) >0) {
+                        bt.send(buffer,0,l);
                     }
                 } catch (IOException e) {
                     Log.e("BtSenderThread", "Failed BtSenderThread Server Thread", e);
@@ -121,9 +122,10 @@ public class TcpBtServer {
                 Log.i("ServerThread", "BtReceiverThread started");
                 try {
                     OutputStream os = s.getOutputStream();
-                    int i;
-                    while ((i = bt.read()) != -1) {
-                        os.write(i);
+                    int l;
+                    byte[] buffer = new byte[1024];
+                    while ((l = bt.read(buffer)) >0) {
+                        os.write(buffer,0,l);
                     }
                 } catch (IOException e) {
                     Log.e("BtReceiverThread", "Failed BtReceiverThread Server Thread", e);
