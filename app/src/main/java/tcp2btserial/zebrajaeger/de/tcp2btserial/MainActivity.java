@@ -3,16 +3,12 @@ package tcp2btserial.zebrajaeger.de.tcp2btserial;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,8 +16,6 @@ import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TcpBtServer tcpBtServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.ip_text);
         tv.setText(ipAddress);
         try {
-            tcpBtServer = new TcpBtServer(BT.I, ipAddress, 7654);
+            new TcpBtServer(BT.I, ipAddress, 7654);
         } catch (UnknownHostException e) {
             Log.e("MainActivity", "Failed to create TcpBtServer", e);
         }
@@ -75,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void buttonBtSelectDeviceOnClick() {
         BT.I.refreshDeviceList();
         final String[] names = BT.I.getSortedDeviceNamesAsArray();
