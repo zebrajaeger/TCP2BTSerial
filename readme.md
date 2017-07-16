@@ -11,5 +11,5 @@ The IP is shown in the App interface, the port is fixed at 7654.
 
 ## Example
 
-Use i.e. Putty to make a raw connection to <IP>:7654. When you connected, 
+Use i.e. Putty to make a raw connection to &lt;IP&gt;:7654. When you connected, 
 every char you type should be send to your Bluetooth Serial Device.
